@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Movie } from './models/movie.model';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [NavbarComponent, MovieListPageComponent],
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
