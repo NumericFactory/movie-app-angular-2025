@@ -1,0 +1,10 @@
+<div class="card">
+  <img class="card-img-top" [src]="movie().image" alt="">
+  <div class="card-body">
+    <h2 class="card-title">{{ movie().title }}</h2>
+
+    <!-- on affiche les étoiles -->
+    <ui-stars [note]="movie().score"></ui-stars>
+
+  </div>
+</div>
