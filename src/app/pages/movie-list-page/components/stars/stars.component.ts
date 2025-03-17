@@ -8,10 +8,12 @@ import { Component, input } from '@angular/core';
 })
 export class StarsComponent {
 
+  note = input.required<number>();
+
   // je cree un array qui contient autant d'items que le score
-  note = input.required({
-    transform: (value: number) => new Array(value).fill(1)
-  })
+  // note = input.required({
+  //   transform: (value: number) => new Array(value).fill(1)
+  // })
 
 
 }
