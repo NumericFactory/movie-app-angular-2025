@@ -1,17 +1,28 @@
 <div class="container">
 
-  <h1>Les films à l'affiche</h1>
+    <h1 id="top">Les films à l'affiche</h1>
+    <input type="checkbox"
+           [formControl]="checkTitle"
+           id="">
+    <!-- LISTE DES FILMS-->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4">
+        @for (movie of movies(); track movie) {
+        <div class="col">
+            <!-- afficher la <ui-card> -->
+            <ui-card [movie]="movie"></ui-card>
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
-
-    @for (movie of movies(); track movie) {
-    <div class="col">
-      <!-- afficher la <ui-card> -->
-      <ui-card [movie]="movie"></ui-card>
-
+        </div>
+        }
     </div>
-    }
 
+    <!-- ACTION BUTTONS -->
+    <div class="d-flex justify-content-end py-3 position-sticky bottom-0">
+        <button (click)="getNextMovies()"
+                class="btn btn-warning">Films suivants</button>
+        <a href="#top"
+           class="btn btn-dark">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </div>
 
-  </div>
 </div>

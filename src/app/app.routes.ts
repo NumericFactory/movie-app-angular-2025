@@ -7,7 +7,7 @@ export const routes: Routes = [
 
   // definir des routes ici
   { path: '', component: MovieListPageComponent },
-  { path: 'detail/:title', component: MovieDetailPageComponent },
+  { path: 'detail/:id', component: MovieDetailPageComponent },
   { path: 'search', component: SearchMoviesComponent }
 
 ];

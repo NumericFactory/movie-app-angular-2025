@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { Movie } from '../../../../models/movie.model';
 import { StarsComponent } from '../stars/stars.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ui-card',
-  imports: [StarsComponent],
+  imports: [StarsComponent, RouterLink],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })

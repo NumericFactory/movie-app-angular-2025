@@ -5,15 +5,30 @@ h2 {
 
 div.card {
   position: relative;
+  transition-duration: .3s;
+  box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.2);
+  /* 1. la card prend toute la hauteur de son parent div.col */
+  height: 100%;
+
+  /* 2. l'image prend toutes la hauteur/largeur du parent div.card et redimensionnement ratio*/
+  img.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   ui-stars {
     position: absolute;
     top: 10px;
     right: 10px;
-    background:rgba(0, 0, 0, 0.294) ;
+    background: rgba(0, 0, 0, 0.294);
     padding: 2px 7px;
-    border-radius:10px
+    border-radius: 10px
   }
-  
+
 }
 
+div.card:hover {
+  box-shadow: 0 0 0 3px #f9b703;
+  cursor: pointer;
+}

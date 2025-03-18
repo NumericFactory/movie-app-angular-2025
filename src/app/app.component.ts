@@ -11,11 +11,4 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'movie-app';
-
-  movie: Movie = {
-    title: 'Rambo',
-    image: 'https://image.tmdb.org/t/p/w500/67BPUqGcMK4iG97JNNX4GE0sDwo.jpg',
-    score: 3
-  }
-
 }
