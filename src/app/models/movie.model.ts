@@ -1,4 +1,4 @@
-import { MovieResponseAPI } from "../dto/movie.dto";
+import { MovieResponseAPI, Video, Videos } from "../dto/movie.dto";
 
 export interface Movie {
     id: number,
@@ -23,6 +23,18 @@ export class MovieBuilder {
     image: string = 'https://image.tmdb.org/t/p/w500/67BPUqGcMK4iG97JNNX4GE0sDwo.jpg';
     score: number = 3;
 
+
+    static getUrlVideo(videos: Videos): string | undefined {
+        let url: string | undefined;
+        if (videos?.results.length) {
+            url = 'https://www.youtube.com/embed/' + videos.results[0]?.key
+        }
+        else {
+            url = undefined
+        }
+        return url
+    }
+
     static fromAPI(data: Partial<MovieResponseAPI>): Partial<Movie> {
         return {
             id: data.id,
@@ -37,12 +49,13 @@ export class MovieBuilder {
             score: data.vote_average,
             release_date: data.release_date,
             vote_count: data.vote_count,
-            video: data.videos ? 'https://www.youtube.com/embed/' + data.videos.results[0]?.key : undefined,
+            video: this.getUrlVideo(data.videos!),
             duration: data.runtime ?? 0,
             genres: data.genres ? data.genres.map(item => item.name) : [],
             actors: data.credits ? data.credits.cast.map(item => item.name) : []
         }
     }
+
 
     withTitle(title: string) {
         this.title = title;
