@@ -45,13 +45,13 @@ export class MovieService {
    * récuperer un film par son id
   */
   getMovie(id: number) {
-    // https://api.themoviedb.org/3/movie/[id]
-    return toSignal(this.http.get(
-      this.BASE_URL + '/movie/' + id, {
-      params: { 'append_to_response': 'videos,credits', 'language': 'fr' }
-    }).pipe(
-      map((movieFromApi) => MovieBuilder.fromAPI(movieFromApi))
-    ))
+    return toSignal(this.http.get(this.BASE_URL + `/movie/${id}`, {
+      params: { 'language': 'fr', 'append_to_response': 'videos,credits' }
+    })
+      .pipe(
+        map((response: Partial<MovieResponseAPI>) => MovieBuilder.fromAPI(response))
+      )
+    ) // fin de toSignal
   }
 
 

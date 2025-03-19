@@ -17,6 +17,7 @@ export interface Movie {
 
 
 
+
 export class MovieBuilder {
     title: string = 'Rambo';
     image: string = 'https://image.tmdb.org/t/p/w500/67BPUqGcMK4iG97JNNX4GE0sDwo.jpg';
@@ -36,7 +37,7 @@ export class MovieBuilder {
             score: data.vote_average,
             release_date: data.release_date,
             vote_count: data.vote_count,
-            video: data.videos ? 'https://www.youtube.com/embed/' + data.videos.results[0].key : undefined,
+            video: data.videos ? 'https://www.youtube.com/embed/' + data.videos.results[0]?.key : undefined,
             duration: data.runtime ?? 0,
             genres: data.genres ? data.genres.map(item => item.name) : [],
             actors: data.credits ? data.credits.cast.map(item => item.name) : []

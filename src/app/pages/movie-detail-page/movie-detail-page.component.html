@@ -1,1 +1,63 @@
-<p>movie-detail-page works!</p>
+<div class="container py-5">
+    <div class="row">
+
+        <!-- VIDEO-->
+
+        <div class="col-12">
+            <div class="video-container">
+                <iframe width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/kyNRjChRkXw?si=BrPxugLzYHU085Fd"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
+
+            </div>
+        </div>
+
+        <!-- CONTENU TEXTE-->
+        <div class="col-12">
+            <h1>{{movie()?.title}}</h1>
+
+            <div class="d-flex justify-content-start mb-3">
+                @for (genre of movie()?.genres; track genre) {
+                <span class="badge text-bg-warning me-2">{{genre}}</span>
+                }
+                <ui-stars [title]="movie()?.vote_count+' vote(s)'"
+                          [note]="movie()?.score??0"></ui-stars>
+                <p class="ms-5 my-0">Sortie:
+                    <strong>{{movie()?.release_date | date:'dd/MM/YYYY'}}</strong>
+                </p>
+
+            </div>
+
+            <!-- duréé -->
+            @if(movie()?.duration; as duration) {
+            <h2>Durée</h2>
+            <p>{{duration}}</p>
+            }
+            <!-- overview -->
+            <h2>Résumé</h2>
+            @if(movie()?.description; as description) {
+            <p>{{description}}</p>
+            }
+            @else {
+            <p><em>Résumé non disponible</em></p>
+            }
+
+            <!-- acteurs -->
+            @if(movie()?.actors?.length) {
+            <h2>Acteurs</h2>
+            <ul>
+                @for (actor of movie()?.actors; track actor) {
+                <li>{{actor}}</li>
+                }
+            </ul>
+            }
+
+
+
+        </div>
+    </div>
+</div>
