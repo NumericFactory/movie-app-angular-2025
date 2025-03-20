@@ -14,10 +14,10 @@ import { Component, input } from '@angular/core';
   styles: ``
 })
 export class ButtonComponent {
-  color = input<'primary' | 'secondary' | 'warning' | 'dark'>('secondary');
+  color = input<'primary' | 'secondary' | 'warning' | 'dark' | 'light'>('secondary');
   size = input<'sm' | 'md' | 'lg'>('md');
 
-  getCssColorClass(color: 'primary' | 'secondary' | 'warning' | 'dark') {
+  getCssColorClass(color: 'primary' | 'secondary' | 'warning' | 'dark' | 'light') {
     return 'btn-' + color;
   }
 }
