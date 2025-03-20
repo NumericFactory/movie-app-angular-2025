@@ -2,7 +2,9 @@ import { HttpInterceptorFn } from '@angular/common/http';
 
 export const tmdbInterceptor: HttpInterceptorFn = (req, next) => {
   const TMDB_URL: string = 'https://api.themoviedb.org';
-  const TOKEN: string = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZmRlYjY2MWFhYTAwNmIxZTRmMzZmOTkwYTVmZDhmZCIsIm5iZiI6MTUwNzI0MjEyMy45ODU5OTk4LCJzdWIiOiI1OWQ2YjA4YmMzYTM2ODU1N2QwMDA0MTAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GIerR_exMfX4ubYeTiYZ6DLF6iO34Vm7Iw5nwZNJKA8'
+  const TOKEN: string = 'yJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZmRlYjY2MWFhYTAwNmIxZTRmMzZmOTkwYTVmZDhmZCIsIm5iZiI6MTUwNzI0MjEyMy45ODU5OTk4LCJzdWIiOiI1OWQ2YjA4YmMzYTM2ODU1N2QwMDA0MTAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GIerR_exMfX4ubYeTiYZ6DLF6iO34Vm7Iw5nwZNJKA8'
+
+  // HttpRequest / HttpResponse / HttpErrorResponse
 
   /*
     si l'url contient 'https://api.themoviedb.org/3'
