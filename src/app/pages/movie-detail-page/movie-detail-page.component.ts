@@ -19,7 +19,7 @@ export class MovieDetailPageComponent {
   route = inject(ActivatedRoute);
   sanitize = inject(DomSanitizer);
 
-  movie: Signal<Partial<Movie> | undefined>;
+  movie: Signal<Partial<Movie>>;
 
   constructor() {
     const id = this.route.snapshot.params['id'];

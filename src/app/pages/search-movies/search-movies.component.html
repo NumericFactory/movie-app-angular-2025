@@ -1,1 +1,22 @@
-<p>search-movies works!</p>
+<div class="container py-5">
+    <input class="form-control"
+           placeholder="Rechercher un film..."
+           #searchInput
+           (keyup)="searchMoviesAction(searchInput.value)"
+           type="text"
+           type="search">
+
+    <!-- @for (movie of foundMovies(); track movie.id) { -->
+    <!-- <ul>
+        <li>{{movie.title}}</li>
+    </ul> -->
+    <!-- } -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+        @for (foundMovie of foundMovies(); track foundMovie.id) {
+        <div class="col">
+            <ui-card [movie]="foundMovie"></ui-card>
+        </div>
+        }
+    </div>
+
+</div>
