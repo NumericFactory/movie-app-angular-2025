@@ -2,7 +2,9 @@
      class="card">
 
   <img class="card-img-top"
-       [src]="movie().image_poster"
+       [ngSrc]="movie().image_poster"
+       width="500"
+       height="750"
        alt="">
   <div class="card-body">
     <h2 class="card-title">{{ movie().title }}</h2>
