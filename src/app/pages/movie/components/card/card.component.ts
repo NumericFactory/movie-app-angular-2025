@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Movie } from '../../../../models/movie.model';
+import { Movie } from '../../../../shared/models/movie.model';
 import { StarsComponent } from '../stars/stars.component';
 import { RouterLink } from '@angular/router';
 

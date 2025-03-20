@@ -2,7 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { tmdbInterceptor } from './interceptors/tmdb.interceptor';
+import { tmdbInterceptor } from './shared/interceptors/tmdb.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

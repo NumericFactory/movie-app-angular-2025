@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, Signal, signal } from '@angular/core';
-import { Movie, MovieBuilder } from '../models/movie.model';
+import { Movie, MovieBuilder } from '../../shared/models/movie.model';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs';
 import { MovieResponseAPI } from '../dto/movie.dto';
@@ -93,11 +93,10 @@ export class MovieService {
       .subscribe()
   }
 
+
   setUserSearchText(userSearchText: string) {
     this._userSearchText.set(userSearchText);
   }
-
-
   /**
    * role: resetSearchMovie
    * @returns void
