@@ -1,10 +1,10 @@
-import { Component, effect, inject, Signal } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MovieService } from '../../../shared/services/movie.service';
 import { Movie } from '../../../shared/models/movie.model';
 import { CommonModule, DatePipe } from '@angular/common';
-import { StarsComponent } from "../../movie-list-page/components/stars/stars.component";
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { StarsComponent } from "../../../ui/stars/stars.component";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-movie-detail-page',

@@ -1,7 +1,8 @@
 import { Component, effect, inject } from '@angular/core';
-import { MovieService } from '../../services/movie.service';
-import { CardComponent } from "./components/card/card.component";
+import { MovieService } from '../../../shared/services/movie.service';
+
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CardComponent } from '../components/card/card.component';
 
 @Component({
   selector: 'app-movie-list-page',

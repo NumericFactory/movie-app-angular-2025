@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { MovieService } from '../../shared/services/movie.service';
-import { CardComponent } from '../movie-list-page/components/card/card.component';
+import { MovieService } from '../../../shared/services/movie.service';
+import { CardComponent } from '../components/card/card.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, map } from 'rxjs';
 

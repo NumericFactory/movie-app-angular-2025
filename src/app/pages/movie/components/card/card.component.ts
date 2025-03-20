@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { Movie } from '../../../../shared/models/movie.model';
-import { StarsComponent } from '../stars/stars.component';
 import { RouterLink } from '@angular/router';
+import { StarsComponent } from '../../../../ui/stars/stars.component';
 
 @Component({
   selector: 'ui-card',
