@@ -1,21 +1,33 @@
 import { Routes } from '@angular/router';
 import { MovieListPageComponent } from './pages/movie/movie-list-page/movie-list-page.component';
-import { SearchMoviesComponent } from './pages/movie/search-movies/search-movies.component';
 import { MovieDetailPageComponent } from './pages/movie/movie-detail-page/movie-detail-page.component';
-import { RegisterPageComponent } from './pages/user/register-page/register-page.component';
-import { LoginPageComponent } from './pages/user/login-page/login-page.component';
 import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
 
-  // Pages publiques
+  // routes publiques
   { path: '', component: MovieListPageComponent },
-  { path: 'detail/:id', component: MovieDetailPageComponent },
-  { path: 'search', component: SearchMoviesComponent },
+  {
+    path: 'detail/:id', loadChildren: () => import('./pages/movie/movie-detail-page/movie-detail-page.component')
+      .then(m => m.MovieDetailPageComponent)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./pages/movie/search-movies/search-movies.component')
+      .then(m => m.SearchMoviesComponent)
+  },
 
   // routes auth
-  { path: 'login', component: LoginPageComponent },
-  { path: 'register', component: RegisterPageComponent },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/user/login-page/login-page.component')
+      .then(m => m.LoginPageComponent)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/user/register-page/register-page.component')
+      .then(m => m.RegisterPageComponent)
+  }
 
   /* routes protégées (avec un/des guard(s))
     exemples : 
