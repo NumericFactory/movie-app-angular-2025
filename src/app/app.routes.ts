@@ -5,28 +5,22 @@ import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
 
-  // routes publiques
+  // Pages publiques
   { path: '', component: MovieListPageComponent },
-  {
-    path: 'detail/:id', loadChildren: () => import('./pages/movie/movie-detail-page/movie-detail-page.component')
-      .then(m => m.MovieDetailPageComponent)
-  },
+  { path: 'detail/:id', component: MovieDetailPageComponent },
   {
     path: 'search',
-    loadChildren: () => import('./pages/movie/search-movies/search-movies.component')
-      .then(m => m.SearchMoviesComponent)
+    loadComponent: () => import('./pages/movie/search-movies/search-movies.component').then(m => m.SearchMoviesComponent)
   },
 
   // routes auth
   {
     path: 'login',
-    loadChildren: () => import('./pages/user/login-page/login-page.component')
-      .then(m => m.LoginPageComponent)
+    loadComponent: () => import('./pages/user/login-page/login-page.component').then(m => m.LoginPageComponent)
   },
   {
     path: 'register',
-    loadChildren: () => import('./pages/user/register-page/register-page.component')
-      .then(m => m.RegisterPageComponent)
+    loadComponent: () => import('./pages/user/register-page/register-page.component').then(m => m.RegisterPageComponent)
   }
 
   /* routes protégées (avec un/des guard(s))
