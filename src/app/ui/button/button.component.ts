@@ -8,10 +8,13 @@ import { Component, input } from '@angular/core';
             [class.btn-sm]="size()=='sm'" 
             [class.btn-lg]="size()=='lg'" 
             [class]="getCssColorClass(color())">
+      <!-- 
+            ng-content permet de projeter le contenu qui sera envoyé dans le component
+            https://angular.dev/guide/components/content-projection
+       -->
       <ng-content></ng-content>
     </button>
-  `,
-  styles: ``
+  `
 })
 export class ButtonComponent {
   color = input<'primary' | 'secondary' | 'warning' | 'dark' | 'light'>('secondary');

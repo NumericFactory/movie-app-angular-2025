@@ -6,6 +6,7 @@ import { LoaderService } from '../../shared/services/loader.service';
   selector: 'ui-loader',
   imports: [],
   template: `
+  <!-- On affiche le template HTML du loader SI LoaderService.loader vaut TRUE -->
   @if( loader() ) {
     <div class="progress-bar">
       <div class="progress-bar-value"></div>
@@ -13,12 +14,12 @@ import { LoaderService } from '../../shared/services/loader.service';
   }
   `,
   styles: ` .progress-bar {
-    height: 10px;
+    height: 7px;
     background-color: rgba(5, 114, 206, 0.2);
     width: 100%;
     overflow: hidden;
     position: fixed;
-    top: 60px;
+    top: 50px;
     z-index: 1000;
   }
   

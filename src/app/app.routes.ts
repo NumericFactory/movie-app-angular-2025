@@ -8,13 +8,24 @@ import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
 
-  // definir des routes ici
+  // Pages publiques
   { path: '', component: MovieListPageComponent },
   { path: 'detail/:id', component: MovieDetailPageComponent },
-  { path: 'search', canActivate: [authGuard], component: SearchMoviesComponent },
+  { path: 'search', component: SearchMoviesComponent },
 
   // routes auth
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
+
+  /* routes protégées (avec un/des guard(s))
+    exemples : 
+    { path: 'user/profile', canActivate: [authGuard], component: UserProfilePageComponent },
+    { path: 'user/profile', canDeactivate: [authGuard], component: EditDocumentPageComponent }
+
+    Explication : 
+    ** un guard "canActivate" empêche/autorise la navigation sur la route cible
+    ** un guard "canDeactivate" empêche/autorise la sortie de la page courante
+    ** Doc : https://angular.dev/api/router/CanActivateFn
+  */
 
 ];

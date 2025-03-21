@@ -19,3 +19,9 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.error {
+    font-size: 85%;
+    color: rgb(191, 0, 0);
+    margin-bottom: 5px;
+}

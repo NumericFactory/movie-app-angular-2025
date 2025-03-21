@@ -13,6 +13,12 @@ import { NgOptimizedImage } from '@angular/common'
 })
 export class CardComponent {
 
+  /* 
+    la fonction input() permet de récuper des données en entrée
+    passées depuis le component parent 
+    exemple ici dans le component MovieListPage
+    <ui-card [movie]="movieObject" />
+  */
   movie = input.required<Movie>()
 
 }

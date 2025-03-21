@@ -7,6 +7,9 @@
                formControlName="email"
                id="email"
                type="text">
+        @if(loginForm.controls['email'].hasError('email') || loginForm.controls['email'].hasError('required')) {
+        <p class="error">Veillez saisir un email valide</p>
+        }
     </div>
     <div>
         <label class="form-label"
@@ -17,6 +20,6 @@
                type="password">
     </div>
     <div class="d-flex justify-content-end py-3">
-        <button class="btn btn-warning">Envoyer</button>
+        <ui-button color="warning">Se connecter</ui-button>
     </div>
 </form>
