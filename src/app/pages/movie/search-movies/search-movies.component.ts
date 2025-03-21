@@ -27,11 +27,11 @@ export class SearchMoviesComponent {
         debounceTime(1000)
       )
       .subscribe(searchText => {
+        // store la donnée texte "recherche" de l'utilisateur
+        this.movieService.setUserSearchText(searchText)
         if (searchText.length) {
           // execute la request HTTP de récupération des films
           this.movieService.searchMovies(searchText);
-          // store la donnée texte "recherche" de l'utilisateur
-          this.movieService.setUserSearchText(searchText)
         }
         else {
           this.movieService.resetSearchMovie()

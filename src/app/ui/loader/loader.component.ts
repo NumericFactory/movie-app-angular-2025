@@ -17,6 +17,9 @@ import { LoaderService } from '../../shared/services/loader.service';
     background-color: rgba(5, 114, 206, 0.2);
     width: 100%;
     overflow: hidden;
+    position: fixed;
+    top: 60px;
+    z-index: 1000;
   }
   
   .progress-bar-value {
