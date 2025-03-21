@@ -9,4 +9,5 @@ import { RegisterFormComponent } from "./components/register-form/register-form.
 })
 export class RegisterPageComponent {
 
+
 }

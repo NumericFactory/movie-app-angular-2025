@@ -1,0 +1,22 @@
+<form (submit)="onSubmit()"
+      [formGroup]="loginForm">
+    <div>
+        <label class="form-label"
+               for="email">Email</label>
+        <input class="form-control"
+               formControlName="email"
+               id="email"
+               type="text">
+    </div>
+    <div>
+        <label class="form-label"
+               for="pwd">Mot de passe</label>
+        <input class="form-control"
+               formControlName="password"
+               id="pwd"
+               type="password">
+    </div>
+    <div class="d-flex justify-content-end py-3">
+        <button class="btn btn-warning">Envoyer</button>
+    </div>
+</form>
