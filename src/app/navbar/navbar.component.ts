@@ -12,4 +12,8 @@ export class NavbarComponent {
 
   authService = inject(AuthService);
   isAuthenticated: Signal<boolean> = this.authService.isAuthenticated;
+
+  logout() {
+    this.authService.logout();
+  }
 }

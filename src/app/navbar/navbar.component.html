@@ -13,11 +13,15 @@
          </div>
 
          <div class="navbar-nav">
+
             <!-- si l'utilisateur est connecté -->
             @if(isAuthenticated()) {
             <a class="nav-link"
-               routerLink="/profile">Fred</a>
+               routerLink="/profile">Hello Fred</a>
+            <a class="nav-link"
+               (click)="logout()">se déconnecter</a>
             }
+
             <!-- si l'utilisateur n'est pas connecté -->
             @else {
             <a class="nav-link"

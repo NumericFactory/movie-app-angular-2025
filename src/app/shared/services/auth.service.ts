@@ -13,8 +13,13 @@ export class AuthService {
     // on suppose que l'API réponse 200 OK
     this.isAuthenticated.set(true);
     this.router.navigate(['/']);
+  }
 
-
+  logout() {
+    // on suppose que l'API réponse 200 OK 
+    // (et le token est supprimé en DB côté serveur et côté client) 
+    this.isAuthenticated.set(false);
+    this.router.navigate(['/']);
   }
 
   constructor() { }
