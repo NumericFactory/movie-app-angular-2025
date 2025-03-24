@@ -7,8 +7,11 @@
 
          <div class="navbar-nav">
             <a class="nav-link"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}"
                routerLink="/">Accueil</a>
             <a class="nav-link"
+               routerLinkActive="active"
                routerLink="/search">Recherche</a>
          </div>
 
@@ -17,6 +20,7 @@
             <!-- si l'utilisateur est connecté -->
             @if(isAuthenticated()) {
             <a class="nav-link"
+               routerLinkActive="active"
                routerLink="/profile">Hello Fred</a>
             <a class="nav-link"
                (click)="logout()">se déconnecter</a>
@@ -25,8 +29,10 @@
             <!-- si l'utilisateur n'est pas connecté -->
             @else {
             <a class="nav-link"
+               routerLinkActive="active"
                routerLink="/login">Login</a>
             <a class="nav-link"
+               routerLinkActive="active"
                routerLink="/register">Inscription</a>
             }
          </div>
