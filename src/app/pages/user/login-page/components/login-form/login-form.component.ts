@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../../../../shared/services/auth.service';
 import { ButtonComponent } from "../../../../../ui/button/button.component";
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AlertService } from '../../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-login-form',
@@ -14,9 +15,8 @@ export class LoginFormComponent {
 
   loginForm: FormGroup;
   authService = inject(AuthService);
-
-  // injecter MatSnackbar pour afficher des notifications
-  notif = inject(MatSnackBar);
+  // injecter alertService pour afficher des messages d'alerte
+  alertService = inject(AlertService);
 
   constructor() {
     this.loginForm = new FormGroup({
@@ -32,13 +32,8 @@ export class LoginFormComponent {
    */
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value)
-      this.notif.open('Vous êtes connecté(e)👌', 'Fermer', {
-        duration: 10000,
-        verticalPosition: 'top',
-        horizontalPosition: 'end'
-      })
-      this.authService.login()
+      this.authService.login();
+      this.alertService.show('Vous êtes connecté(e)👋', 'OK');
     }
   }
 

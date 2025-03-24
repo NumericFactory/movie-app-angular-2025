@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ButtonComponent } from "../../../../../ui/button/button.component";
+import { AlertService } from '../../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-register-form',
@@ -13,8 +14,8 @@ import { ButtonComponent } from "../../../../../ui/button/button.component";
 })
 export class RegisterFormComponent {
 
-  // injecter MatSnackbar pour afficher des notifications
-  notif = inject(MatSnackBar);
+  // injecter alertService pour afficher des messages d'alerte
+  alertService = inject(AlertService);
 
   registerForm: FormGroup;
   isSubmitted: boolean = false;
@@ -44,21 +45,11 @@ export class RegisterFormComponent {
       // 1. call une method du service pour poster les données (registerForm.value)
       // 2. Suppose que l'api nous a répondu que l'inscription est OK
       // 3. on affiche une notification de succès
-      this.notif.open('Votre inscription est OK', 'Fermer', {
-        duration: 10000,
-        verticalPosition: 'top',
-        horizontalPosition: 'end',
-        panelClass: 'notif'
-      })
+      this.alertService.show('Vous êtes déconnecté(e)👋', 'OK');
     }
     else {
       // afficher un message d'erreur
-      this.notif.open('Veuillez corriger vos erreurs', 'Fermer', {
-        duration: 30000,
-        verticalPosition: 'top',
-        horizontalPosition: 'end',
-        panelClass: 'notif'
-      })
+      this.alertService.show('Veuillez corriger vos erreurs', 'OK');
     }
 
 
