@@ -19,6 +19,7 @@ export class CardComponent {
     exemple ici dans le component MovieListPage
     <ui-card [movie]="movieObject" />
   */
-  movie = input.required<Movie>()
+  movie = input.required<Movie>();
+  isMovieSeen = input<boolean>(false)
 
 }

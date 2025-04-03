@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { Movie, MovieBuilder } from '../../shared/models/movie.model';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs';
+import { delay, map, tap } from 'rxjs';
 import { MovieResponseAPI } from '../dto/movie.dto';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -40,12 +40,14 @@ export class MovieService {
     })
       // 2 MAP de la réponse API en Movie[]
       .pipe(
+        delay(10000),
         map((response: any) => response.results.map((movieFromApi: MovieResponseAPI) => MovieBuilder.fromAPI(movieFromApi))),
         // 3 je set la valeur du signal avec le tableau des films reçus de l'API (et préalablement mappé)
         tap((data: Movie[]) => {
           console.log(data);
           this._movies_data.update((currentValue) => [...currentValue, ...data]);
         })
+
       )
       .subscribe()
   }

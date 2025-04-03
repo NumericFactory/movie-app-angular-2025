@@ -19,7 +19,7 @@ export class UserService {
   getUserMovies() {
     of([1229730, 1261050, 1165067]).pipe(
       // simulate a delay of 5 seconds
-      delay(10000),
+      // delay(10000),
       tap(() => this._seenMovies.set([1229730, 1261050, 1165067]))
     )
       .subscribe()

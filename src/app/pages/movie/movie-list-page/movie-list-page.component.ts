@@ -5,6 +5,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from '../components/card/card.component';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { UserService } from '../../../shared/services/user.service';
+import { Movie } from '../../../shared/models/movie.model';
 
 @Component({
   selector: 'app-movie-list-page',
@@ -36,6 +37,10 @@ export class MovieListPageComponent {
   ngOnInit() {
     this.movieService.getMovies();
     this.userService.getUserMovies();
+  }
+
+  getIsMovieSeen(movie: Movie): boolean {
+    return this.seenMovies().includes(movie.id)
   }
 
   getNextMovies() {

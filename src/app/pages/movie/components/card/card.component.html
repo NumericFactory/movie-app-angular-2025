@@ -1,6 +1,10 @@
 <div [routerLink]="['/detail', movie().id]"
      class="card">
 
+  @if(isMovieSeen()) {
+  <span class="badge bg-dark position-absolute">VU</span>
+  }
+
   <img class="card-img-top"
        [ngSrc]="movie().image_poster"
        width="500"
