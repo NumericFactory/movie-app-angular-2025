@@ -1,9 +1,10 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { MovieService } from '../../../shared/services/movie.service';
 
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from '../components/card/card.component';
 import { LoaderService } from '../../../shared/services/loader.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-movie-list-page',
@@ -12,12 +13,13 @@ import { LoaderService } from '../../../shared/services/loader.service';
   styleUrl: './movie-list-page.component.css'
 })
 export class MovieListPageComponent {
-
-  checkTitle = new FormControl(false)
-
-  // constructor(private movieService: MovieService) { }
+  // injection de dépendance (DI)
+  // inject() est une fonction de Angular qui permet d'injecter des dépendances
   movieService = inject(MovieService);
   movies = this.movieService.movies;
+
+  userService = inject(UserService);
+  seenMovies = this.userService.seenMovies;
 
   loaderService = inject(LoaderService);
   isLoading = this.loaderService.loader;
@@ -33,6 +35,7 @@ export class MovieListPageComponent {
 
   ngOnInit() {
     this.movieService.getMovies();
+    this.userService.getUserMovies();
   }
 
   getNextMovies() {
