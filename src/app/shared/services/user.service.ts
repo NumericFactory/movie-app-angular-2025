@@ -1,5 +1,6 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { delay, of, tap } from 'rxjs';
+import { Injectable, signal, computed, effect, inject } from '@angular/core';
+import { of, tap } from 'rxjs';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -7,10 +8,18 @@ import { delay, of, tap } from 'rxjs';
 })
 export class UserService {
 
+  private authService = inject(AuthService);
+
   private _seenMovies = signal<number[]>([]);
   public readonly seenMovies = computed(() => this._seenMovies());
 
-  constructor() { }
+  constructor() {
+    effect(() => {
+      if (!this.authService.isAuthenticated()) {
+        this._seenMovies.set([]);
+      }
+    })
+  }
 
   /**
    * role: getUserMovies from MY API
@@ -19,8 +28,8 @@ export class UserService {
   getUserMovies() {
     of([1229730, 1261050, 1165067]).pipe(
       // simulate a delay of 5 seconds
-      // delay(10000),
-      tap(() => this._seenMovies.set([1229730, 1261050, 1165067]))
+      // delay(5000),
+      tap((movies_ids) => this._seenMovies.set(movies_ids))
     )
       .subscribe()
   }

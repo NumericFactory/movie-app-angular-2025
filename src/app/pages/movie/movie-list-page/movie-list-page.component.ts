@@ -1,11 +1,11 @@
 import { Component, computed, effect, inject } from '@angular/core';
-import { MovieService } from '../../../shared/services/movie.service';
 
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
+import { ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from '../components/card/card.component';
 import { LoaderService } from '../../../shared/services/loader.service';
-import { UserService } from '../../../shared/services/user.service';
 import { Movie } from '../../../shared/models/movie.model';
+import { MovieListStoreService } from './data/movie-list-store.service';
 
 @Component({
   selector: 'app-movie-list-page',
@@ -15,15 +15,9 @@ import { Movie } from '../../../shared/models/movie.model';
 })
 export class MovieListPageComponent {
   // injection de dépendance (DI)
-  // inject() est une fonction de Angular qui permet d'injecter des dépendances
-  movieService = inject(MovieService);
-  movies = this.movieService.movies;
-
-  userService = inject(UserService);
-  seenMovies = this.userService.seenMovies;
-
-  loaderService = inject(LoaderService);
-  isLoading = this.loaderService.loader;
+  movieListStore = inject(MovieListStoreService);
+  movies = this.movieListStore.movies;
+  isLoading = this.movieListStore.loader;
 
   constructor() {
     // le signal movies(), consommé dans effect() est un "live consumer"
@@ -34,17 +28,12 @@ export class MovieListPageComponent {
     console.log('je ne suis pas réactif', this.movies())
   }
 
-  ngOnInit() {
-    this.movieService.getMovies();
-    this.userService.getUserMovies();
-  }
-
   getIsMovieSeen(movie: Movie): boolean {
-    return this.seenMovies().includes(movie.id)
+    return this.movieListStore.seenMoviesIds().includes(movie.id)
   }
 
   getNextMovies() {
-    this.movieService.getMovies();
+    this.movieListStore.getNextMovies()
   }
 
 }

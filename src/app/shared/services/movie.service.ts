@@ -40,7 +40,6 @@ export class MovieService {
     })
       // 2 MAP de la réponse API en Movie[]
       .pipe(
-        delay(10000),
         map((response: any) => response.results.map((movieFromApi: MovieResponseAPI) => MovieBuilder.fromAPI(movieFromApi))),
         // 3 je set la valeur du signal avec le tableau des films reçus de l'API (et préalablement mappé)
         tap((data: Movie[]) => {
