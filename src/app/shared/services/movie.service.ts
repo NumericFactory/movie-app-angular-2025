@@ -21,8 +21,6 @@ export class MovieService {
   // STORE/EXPOSE DATA from search/movie/[id]
   private _foundMovies_data = signal<Movie[]>([]);
   public readonly foundMovies = computed(() => this._foundMovies_data());
-  private _userSearchText = signal<string>('');
-  public userSearchText = computed(() => this._userSearchText());
 
   // STATE "currentMoviesPage"
   currentMoviesPage = 0;
@@ -94,16 +92,11 @@ export class MovieService {
       .subscribe()
   }
 
-
-  setUserSearchText(userSearchText: string) {
-    this._userSearchText.set(userSearchText);
-  }
-  /**
-   * role: resetSearchMovie
-   * @returns void
-   */
   resetSearchMovie(): void {
     this._foundMovies_data.set([])
   }
+
+
+
 
 }

@@ -3,6 +3,7 @@ import { MovieService } from '../../../shared/services/movie.service';
 import { CardComponent } from '../components/card/card.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, map } from 'rxjs';
+import { SearchMoviesStoreService } from './data/search-movies-store.service';
 
 @Component({
   selector: 'app-search-movies',
@@ -12,8 +13,8 @@ import { debounceTime, map } from 'rxjs';
 })
 export class SearchMoviesComponent {
 
-  movieService = inject(MovieService);
-  foundMovies = this.movieService.foundMovies;
+  searchMoviesStore = inject(SearchMoviesStoreService);
+  foundMovies = this.searchMoviesStore.searchResult;
 
   // déclare un objet de la class FormControl
   searchInput = new FormControl('');
@@ -28,20 +29,20 @@ export class SearchMoviesComponent {
       )
       .subscribe(searchText => {
         // store la donnée texte "recherche" de l'utilisateur
-        this.movieService.setUserSearchText(searchText)
+        this.searchMoviesStore.setUserSearchText(searchText)
         if (searchText.length) {
           // execute la request HTTP de récupération des films
-          this.movieService.searchMovies(searchText);
+          this.searchMoviesStore.searchMovies(searchText)
         }
         else {
-          this.movieService.resetSearchMovie()
+          this.searchMoviesStore.resetSearchMovie()
         }
       });
   }
 
   ngOnInit() {
-    console.log(this.movieService.userSearchText());
-    this.searchInput.setValue(this.movieService.userSearchText())
+    console.log(this.searchMoviesStore.userSearchText());
+    this.searchInput.setValue(this.searchMoviesStore.userSearchText())
   }
 
 }
