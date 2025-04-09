@@ -1,9 +1,10 @@
 <div class="container">
     <h1>Rechercher</h1>
-    <!-- PARTIE 1 : Recherche multi-criteres par nom, serie/movie, et language-->
+    <!-- PARTIE 1 : Recherche multi-criteres -->
     <div class="row justify-content-between py-4">
 
         <div class="col-12 col-md-6 col-lg-8">
+            <!-- critere 1 : input de recherche par nom -->
             <input class="form-control"
                    autofocus
                    [formControl]="searchInput"
@@ -12,6 +13,7 @@
         </div>
 
         <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end align-items-center gap-2">
+            <!-- critere 2 : choix de : movie ou serie -->
             <div class="btn-group"
                  role="group"
                  aria-label="Basic example">
@@ -24,23 +26,31 @@
                         [class.active]="(choice | async) === 'serie'"
                         class="btn btn-dark">Series</button>
             </div>
+            <!-- critere 3 : choix de la langue -->
             <select [formControl]="language"
                     class="form-select"
                     aria-label="Default select example">
                 <option value="fr-FR">Français</option>
                 <option value="en-US">Anglais</option>
+                <option value="es">Espagnol</option>
+                <option value="de">Allemand</option>
             </select>
         </div>
     </div>
 
     <!-- PARTIE 2 : Affichage de la liste de resulats movies ou series -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 py-4">
-        @for (foundMovie of foundResults(); track foundMovie.id) {
+        @for (foundResult of foundResults(); track foundResult.id) {
         <div class="col">
-            @if((choice | async) === 'movie') {
-            <ui-movie-card [movie]="foundMovie" />
-            } @else {
-            <ui-movie-card [movie]="foundMovie" />
+            <!-- 
+                On peut aussi utiliser le type guard isMovie() et isSerie()
+                pour savoir si on a un film ou une serie 
+            -->
+            @if(isMovie(foundResult)){
+            <ui-movie-card [movie]="foundResult" />
+            }
+            @if(isSerie(foundResult)){
+            <ui-serie-card [serie]="foundResult" />
             }
         </div>
         }

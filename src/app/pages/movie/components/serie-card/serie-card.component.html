@@ -1,0 +1,23 @@
+<div [routerLink]="['/detail', serie().id]"
+     class="card">
+
+    <img class="card-img-top"
+         [src]="serie().image_poster"
+         width="500"
+         height="750"
+         alt="">
+    <div class="card-body">
+        <h2 class="card-title">{{ serie().title }}</h2>
+
+        @if(serie().vote_count>0) {
+        <!-- on affiche les étoiles -->
+        <ui-stars [title]="serie().vote_count + ' vote(s)'"
+                  [note]="serie().score"></ui-stars>
+        }
+        <div class="d-flex justify-content-end">
+            <ui-button size="sm"
+                       color="warning">Ajouter</ui-button>
+        </div>
+
+    </div>
+</div>

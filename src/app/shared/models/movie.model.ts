@@ -1,4 +1,5 @@
-import { MovieResponseAPI, Video, Videos } from "../dto/movie.dto";
+import { MovieResponseAPI, Videos } from "../dto/movie.dto";
+import { Serie } from "./serie.model";
 
 export interface Movie {
     id: number,
@@ -15,23 +16,14 @@ export interface Movie {
     video: string | undefined
 }
 
-
-
-
 export class MovieBuilder {
     title: string = 'Rambo';
     image: string = 'https://image.tmdb.org/t/p/w500/67BPUqGcMK4iG97JNNX4GE0sDwo.jpg';
     score: number = 3;
 
-
     static getUrlVideo(videos: Videos): string | undefined {
         let url: string | undefined;
-        if (videos?.results.length) {
-            url = 'https://www.youtube.com/embed/' + videos.results[0]?.key
-        }
-        else {
-            url = undefined
-        }
+        if (videos?.results.length) { url = 'https://www.youtube.com/embed/' + videos.results[0]?.key }
         return url
     }
 
@@ -55,32 +47,21 @@ export class MovieBuilder {
             actors: data.credits ? data.credits.cast.map(item => item.name) : []
         }
     }
-
-
-    withTitle(title: string) {
-        this.title = title;
-        return this;
-    }
-    withImage(image: string) {
-        this.image = image;
-        return this;
-    }
-    withScore(score: number) {
-        this.score = score;
-        return this;
-    }
-    build() {
-        return {
-            title: this.title,
-            image: this.image,
-            score: this.score
-        }
-    }
-    // constructor(title: string, image: string, score: number) {
-    //     this.title = title;
-    //     this.image = image;
-    //     this.score = score
-    // }
 }
+
+/**
+ * isMovie
+ * Role : type prédictif 
+ * (doc : https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates)
+ * @description permet de savoir si l'objet est un film 
+ * @param data 
+ */
+export function isMovie(data: Movie | Serie): data is Movie {
+    if (data !== null && typeof data == 'object') {
+        return 'duration' in data
+    }
+    return false
+}
+
 
 

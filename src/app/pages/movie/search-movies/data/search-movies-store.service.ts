@@ -1,5 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { MovieService } from '../../../../shared/services/movie.service';
+import { Movie } from '../../../../shared/models/movie.model';
+import { Serie } from '../../../../shared/models/serie.model';
 
 export type UserSearchOption = 'movie' | 'serie';
 
@@ -32,30 +34,29 @@ export class SearchMoviesStoreService {
   private _userSearchOption = signal<UserSearchOption>('movie');
 
   // 2 exposition à la page (SearchMoviesComponent)
-  searchResult = computed(() => this._userSearchOption() === 'movie'
-    ? this._foundMovies()
-    : this._foundSeries()
-  )
-
+  public searchResult = computed(() => this._userSearchOption() === 'movie'
+    ? this._foundMovies() // type Signal<Movie[]>
+    : this._foundSeries() // type Signal<Serie[]>
+  );
   public userSearchText = computed(() => this._userSearchText());
 
   constructor() { }
 
 
-  // 3 actions : invoquées par l'interface utilisateur (la page SearchMoviesComponent)
+  // 3 les actions invoquées par l'interface utilisateur (la page SearchMoviesComponent)
 
   /**
-   * role : recherche des films ou séries selon le type de recherche (film ou série)
+   * role : répondre à l'action "recherche" de l'utilisateur
    * 
    * @param search: UserSearch
    * search.searchText: texte de recherche (saisie par l'utilisateur)
    * search.option: type de recherche (film ou série)
    * search.language: langue de recherche (français ou anglais) 
    */
-  searchMoviesOrSeries(search: UserSearch) {
+  onSearchMoviesOrSeries(search: UserSearch) {
     if (search.option === 'serie') {
       this._userSearchOption.set('serie');
-      this._movieService.searchSeries(search.searchText)
+      this._movieService.searchSeries(search.searchText, search.language)
     }
     else {
       this._userSearchOption.set('movie');
@@ -73,6 +74,7 @@ export class SearchMoviesStoreService {
 
   /**
    * role : réinitialiser recherche de l'utilisateur
+   *        avec un tableau vide
    */
   resetSearchMovie(): void {
     this._movieService.resetSearchMovie()

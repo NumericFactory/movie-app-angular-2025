@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { Movie } from '../../../shared/models/movie.model';
 import { MovieListStoreService } from './data/movie-list-store.service';
-import { MovieCardComponent } from '../components/card/movie-card.component';
+import { MovieCardComponent } from '../components/movie-card/movie-card.component';
 
 @Component({
   selector: 'app-movie-list-page',

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { delay, map, tap } from 'rxjs';
 import { MovieResponseAPI } from '../dto/movie.dto';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Serie, SerieBuilder } from '../models/serie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class MovieService {
   public readonly foundMovies = computed(() => this._foundMovies_data());
 
   // STORE/EXPOSE DATA from search/tv
-  private _foundSeries_data = signal<Movie[]>([]);
-  public readonly foundSeries = computed(() => this._foundMovies_data());
+  private _foundSeries_data = signal<Serie[]>([]);
+  public readonly foundSeries = computed(() => this._foundSeries_data());
 
 
   // STATE "currentMoviesPage"
@@ -98,17 +99,17 @@ export class MovieService {
   }
 
 
-  searchSeries(userSearchText: string): void {
+  searchSeries(userSearchText: string, language: string): void {
     this.http.get(this.BASE_URL + '/search/tv', {
       headers: {},
       params: {
         'query': userSearchText,
-        'language': 'fr'
+        'language': language
       },
     })
       .pipe(
-        map((response: any) => response.results.map((item: any) => MovieBuilder.fromAPI(item))),
-        tap((data: any) => this._foundMovies_data.set(data))
+        map((response: any) => response.results.map((item: any) => SerieBuilder.fromAPI(item))),
+        tap((data: any) => this._foundSeries_data.set(data))
       )
       .subscribe()
   }
