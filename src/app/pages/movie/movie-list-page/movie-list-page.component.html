@@ -7,8 +7,8 @@
         @for (movie of movies(); track movie) {
         <div class="col">
             <!-- afficher la <ui-card> -->
-            <ui-card [isMovieSeen]="getIsMovieSeen(movie)"
-                     [movie]="movie"></ui-card>
+            <ui-movie-card [isMovieSeen]="getIsMovieSeen(movie)"
+                           [movie]="movie" />
 
         </div>
         }

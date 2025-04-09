@@ -1,15 +1,47 @@
 <div class="container">
-    <h1>Rechercher un film</h1>
-    <input class="form-control"
-           autofocus
-           [formControl]="searchInput"
-           placeholder="Rechercher un film..."
-           type="search">
+    <h1>Rechercher</h1>
+    <!-- PARTIE 1 : Recherche multi-criteres par nom, serie/movie, et language-->
+    <div class="row justify-content-between py-4">
 
+        <div class="col-12 col-md-6 col-lg-8">
+            <input class="form-control"
+                   autofocus
+                   [formControl]="searchInput"
+                   placeholder="Rechercher un film, une serie..."
+                   type="search">
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-end align-items-center gap-2">
+            <div class="btn-group"
+                 role="group"
+                 aria-label="Basic example">
+                <button (click)="onCategoryChange('movie')"
+                        type="button"
+                        [class.active]="(choice | async) === 'movie'"
+                        class="btn btn-dark">films</button>
+                <button (click)="onCategoryChange('serie')"
+                        type="button"
+                        [class.active]="(choice | async) === 'serie'"
+                        class="btn btn-dark">Series</button>
+            </div>
+            <select [formControl]="language"
+                    class="form-select"
+                    aria-label="Default select example">
+                <option value="fr-FR">Français</option>
+                <option value="en-US">Anglais</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- PARTIE 2 : Affichage de la liste de resulats movies ou series -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 py-4">
-        @for (foundMovie of foundMovies(); track foundMovie.id) {
+        @for (foundMovie of foundResults(); track foundMovie.id) {
         <div class="col">
-            <ui-card [movie]="foundMovie"></ui-card>
+            @if((choice | async) === 'movie') {
+            <ui-movie-card [movie]="foundMovie" />
+            } @else {
+            <ui-movie-card [movie]="foundMovie" />
+            }
         </div>
         }
     </div>

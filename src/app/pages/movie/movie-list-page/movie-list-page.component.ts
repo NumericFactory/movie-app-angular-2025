@@ -1,15 +1,14 @@
-import { Component, computed, effect, inject } from '@angular/core';
-
-
+import { Component, effect, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CardComponent } from '../components/card/card.component';
+
 import { LoaderService } from '../../../shared/services/loader.service';
 import { Movie } from '../../../shared/models/movie.model';
 import { MovieListStoreService } from './data/movie-list-store.service';
+import { MovieCardComponent } from '../components/card/movie-card.component';
 
 @Component({
   selector: 'app-movie-list-page',
-  imports: [CardComponent, ReactiveFormsModule],
+  imports: [MovieCardComponent, ReactiveFormsModule],
   templateUrl: './movie-list-page.component.html',
   styleUrl: './movie-list-page.component.css'
 })

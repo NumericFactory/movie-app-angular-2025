@@ -6,12 +6,12 @@ import { ButtonComponent } from "../../../../ui/button/button.component";
 import { NgOptimizedImage } from '@angular/common'
 
 @Component({
-  selector: 'ui-card',
+  selector: 'ui-movie-card',
   imports: [StarsComponent, RouterLink, ButtonComponent, NgOptimizedImage],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.css'
+  templateUrl: './movie-card.component.html',
+  styleUrl: './movie-card.component.css'
 })
-export class CardComponent {
+export class MovieCardComponent {
 
   /* 
     la fonction input() permet de récuper des données en entrée

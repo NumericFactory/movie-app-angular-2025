@@ -18,9 +18,14 @@ export class MovieService {
   private _movies_data = signal<Movie[]>([]);
   public readonly movies = computed(() => this._movies_data());
 
-  // STORE/EXPOSE DATA from search/movie/[id]
+  // STORE/EXPOSE DATA from search/movie
   private _foundMovies_data = signal<Movie[]>([]);
   public readonly foundMovies = computed(() => this._foundMovies_data());
+
+  // STORE/EXPOSE DATA from search/tv
+  private _foundSeries_data = signal<Movie[]>([]);
+  public readonly foundSeries = computed(() => this._foundMovies_data());
+
 
   // STATE "currentMoviesPage"
   currentMoviesPage = 0;
@@ -77,8 +82,24 @@ export class MovieService {
    * @argument searchText: string
    * @returns void
    */
-  searchMovies(userSearchText: string): void {
+  searchMovies(userSearchText: string, language: string): void {
     this.http.get(this.BASE_URL + '/search/movie', {
+      headers: {},
+      params: {
+        'query': userSearchText,
+        'language': language
+      },
+    })
+      .pipe(
+        map((response: any) => response.results.map((item: any) => MovieBuilder.fromAPI(item))),
+        tap((data: any) => this._foundMovies_data.set(data))
+      )
+      .subscribe()
+  }
+
+
+  searchSeries(userSearchText: string): void {
+    this.http.get(this.BASE_URL + '/search/tv', {
       headers: {},
       params: {
         'query': userSearchText,

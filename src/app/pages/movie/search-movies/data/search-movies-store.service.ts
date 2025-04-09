@@ -1,6 +1,14 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { MovieService } from '../../../../shared/services/movie.service';
 
+export type UserSearchOption = 'movie' | 'serie';
+
+export type UserSearch = {
+  searchText: string,
+  option: UserSearchOption,
+  language: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,23 +27,53 @@ export class SearchMoviesStoreService {
   // 1 injection services et données (depuis MovieService)
   private _movieService = inject(MovieService);
   private _foundMovies = this._movieService.foundMovies;
+  private _foundSeries = this._movieService.foundSeries;
   private _userSearchText = signal<string>('');
-  public userSearchText = computed(() => this._userSearchText());
+  private _userSearchOption = signal<UserSearchOption>('movie');
 
   // 2 exposition à la page (SearchMoviesComponent)
-  searchResult = computed(() => this._foundMovies())
+  searchResult = computed(() => this._userSearchOption() === 'movie'
+    ? this._foundMovies()
+    : this._foundSeries()
+  )
+
+  public userSearchText = computed(() => this._userSearchText());
 
   constructor() { }
 
+
   // 3 actions : invoquées par l'interface utilisateur (la page SearchMoviesComponent)
-  searchMovies(search: string) {
-    this._movieService.searchMovies(search)
+
+  /**
+   * role : recherche des films ou séries selon le type de recherche (film ou série)
+   * 
+   * @param search: UserSearch
+   * search.searchText: texte de recherche (saisie par l'utilisateur)
+   * search.option: type de recherche (film ou série)
+   * search.language: langue de recherche (français ou anglais) 
+   */
+  searchMoviesOrSeries(search: UserSearch) {
+    if (search.option === 'serie') {
+      this._userSearchOption.set('serie');
+      this._movieService.searchSeries(search.searchText)
+    }
+    else {
+      this._userSearchOption.set('movie');
+      this._movieService.searchMovies(search.searchText, search.language)
+    }
   }
 
+  /**
+   * role : stocker le texte de recherche de l'utilisateur
+   * @param userSearchText : texte de recherche (saisie par l'utilisateur)
+   */
   setUserSearchText(userSearchText: string) {
     this._userSearchText.set(userSearchText);
   }
 
+  /**
+   * role : réinitialiser recherche de l'utilisateur
+   */
   resetSearchMovie(): void {
     this._movieService.resetSearchMovie()
   }
