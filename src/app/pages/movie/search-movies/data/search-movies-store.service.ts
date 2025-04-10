@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { MovieService } from '../../../../shared/services/movie.service';
 import { Movie } from '../../../../shared/models/movie.model';
 import { Serie } from '../../../../shared/models/serie.model';
@@ -28,48 +28,38 @@ export class SearchMoviesStoreService {
 
   // 1 injection services et données (depuis MovieService)
   private _movieService = inject(MovieService);
-  private _foundMovies = this._movieService.foundMovies;
-  private _foundSeries = this._movieService.foundSeries;
-  private _userSearchText = signal<string>('');
-  private _userSearchOption = signal<UserSearchOption>('movie');
 
   // 2 exposition à la page (SearchMoviesComponent)
-  public searchResult = computed(() => this._userSearchOption() === 'movie'
-    ? this._foundMovies() // type Signal<Movie[]>
-    : this._foundSeries() // type Signal<Serie[]>
-  );
-  public userSearchText = computed(() => this._userSearchText());
+  // on expose l'état de la recherche de l'utilisateur
+  public userSearchObject = signal<UserSearch>({
+    searchText: '',
+    option: 'movie',
+    language: 'fr-FR'
+  });
+  // on expose l'état du signal searchResult (liste de Movie ou Serie)
+  public searchResult = signal<Movie[] | Serie[]>([]);
 
-  constructor() { }
-
-
-  // 3 les actions invoquées par l'interface utilisateur (la page SearchMoviesComponent)
-
-  /**
-   * role : répondre à l'action "recherche" de l'utilisateur
-   * 
-   * @param search: UserSearch
-   * search.searchText: texte de recherche (saisie par l'utilisateur)
-   * search.option: type de recherche (film ou série)
-   * search.language: langue de recherche (français ou anglais) 
-   */
-  onSearchMoviesOrSeries(search: UserSearch) {
-    if (search.option === 'serie') {
-      this._userSearchOption.set('serie');
-      this._movieService.searchSeries(search.searchText, search.language)
-    }
-    else {
-      this._userSearchOption.set('movie');
-      this._movieService.searchMovies(search.searchText, search.language)
-    }
-  }
-
-  /**
-   * role : stocker le texte de recherche de l'utilisateur
-   * @param userSearchText : texte de recherche (saisie par l'utilisateur)
-   */
-  setUserSearchText(userSearchText: string) {
-    this._userSearchText.set(userSearchText);
+  constructor() {
+    /**
+     * effect : permet de réagir à un changement de valeur d'un signal
+     * role : réagir à l'action "recherche" de l'utilisateur  (userSearchObject)
+     * 
+     * userSearchObject est un signal qui contient un objet avec 3 propriétés :
+     * - searchText: texte de recherche (saisie par l'utilisateur)
+     * - option: type de recherche (movie ou serie)
+     * - language: langue de recherche (français ou anglais) 
+     */
+    effect(() => {
+      this.userSearchObject().option === 'movie'
+        ? this._movieService.searchMovies(this.userSearchObject())
+          .subscribe((movies: Movie[]) => {
+            this.searchResult.set(movies);
+          })
+        : this._movieService.searchSeries(this.userSearchObject())
+          .subscribe((series: Serie[]) => {
+            this.searchResult.set(series);
+          });
+    });
   }
 
   /**

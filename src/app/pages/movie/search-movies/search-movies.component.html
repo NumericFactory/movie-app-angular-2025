@@ -19,11 +19,11 @@
                  aria-label="Basic example">
                 <button (click)="onCategoryChange('movie')"
                         type="button"
-                        [class.active]="(choice | async) === 'movie'"
+                        [class.active]="searchMoviesStore.userSearchObject().option === 'movie'"
                         class="btn btn-dark">films</button>
                 <button (click)="onCategoryChange('serie')"
                         type="button"
-                        [class.active]="(choice | async) === 'serie'"
+                        [class.active]="searchMoviesStore.userSearchObject().option === 'serie'"
                         class="btn btn-dark">Series</button>
             </div>
             <!-- critere 3 : choix de la langue -->
@@ -40,7 +40,7 @@
 
     <!-- PARTIE 2 : Affichage de la liste de resulats movies ou series -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 py-4">
-        @for (foundResult of foundResults(); track foundResult.id) {
+        @for (foundResult of this.searchMoviesStore.searchResult(); track foundResult.id) {
         <div class="col">
             <!-- 
                 On peut aussi utiliser le type guard isMovie() et isSerie()

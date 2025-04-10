@@ -1,10 +1,11 @@
 import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { Movie, MovieBuilder } from '../../shared/models/movie.model';
 import { HttpClient } from '@angular/common/http';
-import { delay, map, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { MovieResponseAPI } from '../dto/movie.dto';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Serie, SerieBuilder } from '../models/serie.model';
+import { UserSearch } from '../../pages/movie/search-movies/data/search-movies-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -83,35 +84,30 @@ export class MovieService {
    * @argument searchText: string
    * @returns void
    */
-  searchMovies(userSearchText: string, language: string): void {
-    this.http.get(this.BASE_URL + '/search/movie', {
-      headers: {},
+  searchMovies(userSearchObject: UserSearch): Observable<Movie[]> {
+    return this.http.get(this.BASE_URL + '/search/movie', {
       params: {
-        'query': userSearchText,
-        'language': language
+        'query': userSearchObject.searchText,
+        'language': userSearchObject.language
       },
-    })
-      .pipe(
-        map((response: any) => response.results.map((item: any) => MovieBuilder.fromAPI(item))),
-        tap((data: any) => this._foundMovies_data.set(data))
-      )
-      .subscribe()
+    }).pipe(
+      map((response: any) => response.results.map((item: any) => MovieBuilder.fromAPI(item))),
+    );
   }
 
 
-  searchSeries(userSearchText: string, language: string): void {
-    this.http.get(this.BASE_URL + '/search/tv', {
+  searchSeries(userSearchObject: UserSearch): Observable<Serie[]> {
+    return this.http.get(this.BASE_URL + '/search/tv', {
       headers: {},
       params: {
-        'query': userSearchText,
-        'language': language
+        'query': userSearchObject.searchText,
+        'language': userSearchObject.language
       },
     })
       .pipe(
         map((response: any) => response.results.map((item: any) => SerieBuilder.fromAPI(item))),
-        tap((data: any) => this._foundSeries_data.set(data))
-      )
-      .subscribe()
+      );
+
   }
 
   resetSearchMovie(): void {
